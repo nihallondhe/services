@@ -26,8 +26,6 @@ jobs:
           - service-7
           - service-8
           - service-9
-          - service-10
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
