@@ -1,0 +1,104 @@
+services:
+  service-1:
+    build: ./services/service-1
+    container_name: service-1
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./services/service-1/.env
+    networks:
+      - micro_net
+
+  service-2:
+    build: ./services/service-2
+    container_name: service-2
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./services/service-2/.env
+    networks:
+      - micro_net
+
+  service-3:
+    build: ./services/service-3
+    container_name: service-3
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./services/service-3/.env
+    networks:
+      - micro_net
+
+  service-4:
+    build: ./services/service-4
+    container_name: service-4
+    ports:
+      - "3004:3004"
+    env_file:
+      - ./services/service-4/.env
+    networks:
+      - micro_net
+
+  service-5:
+    build: ./services/service-5
+    container_name: service-5
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./services/service-5/.env
+    networks:
+      - micro_net
+
+  service-6:
+    build: ./services/service-6
+    container_name: service-6
+    ports:
+      - "3006:3006"
+    env_file:
+      - ./services/service-6/.env
+    networks:
+      - micro_net
+
+  service-7:
+    build: ./services/service-7
+    container_name: service-7
+    ports:
+      - "3007:3007"
+    env_file:
+      - ./services/service-7/.env
+    networks:
+      - micro_net
+
+  service-8:
+    build: ./services/service-8
+    container_name: service-8
+    ports:
+      - "3008:3008"
+    env_file:
+      - ./services/service-8/.env
+    networks:
+      - micro_net
+
+  service-9:
+    build: ./services/service-9
+    container_name: service-9
+    ports:
+      - "3009:3009"
+    env_file:
+      - ./services/service-9/.env
+    networks:
+      - micro_net
+
+  service-10:
+    build: ./services/service-10
+    container_name: service-10
+    ports:
+      - "3010:3010"
+    env_file:
+      - ./services/service-10/.env
+    networks:
+      - micro_net
+
+networks:
+  micro_net:
+    driver: bridge

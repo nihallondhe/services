@@ -1,0 +1,8 @@
+{
+  "name": "service-9",
+  "version": "1.0.0",
+  "description": "Colorful microservice 9",
+  "main": "src/index.js",
+  "scripts": { "start": "node src/index.js" },
+  "dependencies": { "dotenv": "^16.4.5", "express": "^4.19.2" }
+}
