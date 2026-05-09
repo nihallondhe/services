@@ -1,4 +1,4 @@
-name: Build and Push Multi Services to ECR
+name: Build Push and Deploy ECS Services
 
 on:
   push:
@@ -7,10 +7,11 @@ on:
 
 env:
   AWS_REGION: ap-south-1
+  ECS_CLUSTER: service-1-kk8z8l
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,8 +27,6 @@ jobs:
           - service-8
           - service-9
           - service-10
-          - service-order
-          - service-user
 
     steps:
       - name: Checkout Code
@@ -49,22 +48,32 @@ jobs:
             -t ${{ matrix.service }}:${{ github.sha }} \
             ./services/${{ matrix.service }}
 
-      - name: Tag Docker Image
+      - name: Tag Docker Image With SHA
         run: |
           docker tag \
-          ${{ matrix.service }}:${{ github.sha }} \
-          $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }}
+            ${{ matrix.service }}:${{ github.sha }} \
+            $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }}
 
-      - name: Push Docker Image
+      - name: Push SHA Image
         run: |
           docker push \
-          $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }}
+            $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }}
 
-      - name: Push Latest Tag
+      - name: Tag Latest Image
         run: |
           docker tag \
-          ${{ matrix.service }}:${{ github.sha }} \
-          $ECR_REGISTRY/${{ matrix.service }}:latest
+            ${{ matrix.service }}:${{ github.sha }} \
+            $ECR_REGISTRY/${{ matrix.service }}:latest
 
+      - name: Push Latest Image
+        run: |
           docker push \
-          $ECR_REGISTRY/${{ matrix.service }}:latest
+            $ECR_REGISTRY/${{ matrix.service }}:latest
+
+      - name: Force ECS Deployment
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service ${{ matrix.service }}-task \
+            --force-new-deployment \
+            --region $AWS_REGION
