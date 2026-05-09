@@ -7,8 +7,8 @@ const app = express();
 
 const port = Number(process.env.PORT || 3001);
 const serviceLabel = process.env.SERVICE_LABEL || "Service 1";
-const colorA = process.env.COLOR_A || "#667eea";
-const colorB = process.env.COLOR_B || "#764ba2";
+const colorA = process.env.COLOR_A || "#ac330f";
+const colorB = process.env.COLOR_B || "#d3c509";
 
 /*
   Automatically creates:
